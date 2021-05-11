@@ -27,6 +27,7 @@ urlpatterns = [
     path('signup/', core_views.join, name="signup"),
     path('login/', core_views.user_login, name="login"),
     path('logout/', core_views.user_logout, name="logout"),
+    path('browse_recent/', post_views.browse_recent, name="browse_recent"),
     path('upload/', post_views.new_upload, name="new_uploads"),
     path('upload_success/', post_views.upload_success, name="upload_success"),
     path('user_uploads/', post_views.user_uploads, name="user_uploads"),

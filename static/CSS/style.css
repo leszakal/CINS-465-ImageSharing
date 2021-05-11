@@ -9,14 +9,17 @@ a {
   color: #61D3D4;
 }
 img {
-  max-width: 800px;
-  max-height: 800px;
+  max-width: 1000px;
+  max-height: 1000px;
+}
+ul {
+  list-style-type: none;  /*Remove bullets*/
 }
 .img-prev {
   max-width: 500px;
   max-height: 500px;
 }
-.asteriskField {
+.asteriskField {  /*Removes * from django-crispy-forms required fields*/
   display: none;
 }
 .center {
@@ -26,4 +29,11 @@ img {
 }
 .link-no-color {
   color: #e6e6e6;
+}
+.jumbotron {  /*Lessens padding for jumbotrons*/
+  padding: 40px;
+}
+#jumbo-comment {
+  padding: 15px; /*Styling for comment jumbotrons*/
+  margin-bottom: 15px;
 }

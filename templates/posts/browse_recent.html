@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  {% include "bootstrap.html" %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+  <title>Browse Recent</title>
+</head>
+<body>
+  {% include "navbar.html" %}
+  <div class="container">
+    <div class="jumbotron mt-5 bg-dark text-center">
+      <h2 class="pb-4">Recent Submissions</h2>
+      {% if user.is_authenticated %}
+      {% for post in uploads.all reversed %} <!--reversed to render new posts first-->
+      <br>
+      <a href="/posts/{{ post.pk }}/"> <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-prev"/> </a>
+      <p class="pt-2">
+        <b><a href="/posts/{{ post.pk }}/" class="link-no-color">{{ post.title }}</a></b> <em>by</em> <b>{{ post.user }}</b>
+        <br>
+        <small>Uploaded: {{ post.timestamp }}</small></p>
+      {% endfor %}
+      {% else %}
+      {% for post in public_uploads.all reversed %} <!--reversed to render new posts first-->
+      <br>
+      <a href="/posts/{{ post.pk }}/"> <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-prev"/> </a>
+      <p class="pt-2">
+        <b><a href="/posts/{{ post.pk }}/" class="link-no-color">{{ post.title }}</a></b> <em>by</em> <b>{{ post.user }}</b>
+        <br>
+        <small>Uploaded: {{ post.timestamp }}</small></p>
+      {% endfor %}
+      {% endif %}
+      </div>
+    </div>
+  </body>
+  <html>

@@ -9,6 +9,13 @@
 </head>
 <body>
   {% include "navbar.html" %}
+  {% if user.is_authenticated %}
+  <div class="container">
+    <div class="jumbotron mt-5 bg-dark">
+      <h3>System Error: Already logged in.</h3>
+    </div>
+  </div>
+  {% else %}
   <div class="container">
     <div class="jumbotron mt-5 bg-dark">
       <h2 class="pb-4">Login</h2>
@@ -21,5 +28,6 @@
       </form>
     </div>
   </div>
+  {% endif %}
 </body>
 </html>

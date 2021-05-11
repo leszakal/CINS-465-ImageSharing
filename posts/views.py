@@ -5,9 +5,18 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
 from django.contrib.auth.models import User
 from posts.forms import PostForm, CommentForm
-from posts.models import Post
+from posts.models import Post, Comment
 
 # Create your views here.
+def browse_recent(request):
+    uploads = Post.objects.all()
+    public_uploads = Post.objects.filter(private_status=False).all()
+    context = {
+    "uploads": uploads,
+    "public_uploads": public_uploads,
+    }
+    return render(request, 'posts/browse_recent.html', context)
+
 # Render form for upload
 def new_upload(request):
     if (request.method == "POST" and "confirm" in request.POST):
@@ -31,6 +40,7 @@ def new_upload(request):
         return render(request, 'posts/new_upload.html', context)
 
 # Called when upload is successful
+@login_required(login_url="/login/")
 def upload_success(request):
     return render(request, 'posts/upload_success.html')
 
@@ -63,9 +73,9 @@ class PostDetailed(DetailView):
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             c_user = request.user
-            content = comment_form.cleaned_data['comment']
-            comment = Comment(user=c_user, post = self.get_object(),content=content)
+            text = comment_form.cleaned_data['comment']
+            comment = Comment(user=c_user, post=self.get_object(), text=text)
             comment.save()
         else:
             raise Exception
-        return redirect(reverse('detail', args=[self.get_object().id]))
+        return redirect(self.request.path_info)

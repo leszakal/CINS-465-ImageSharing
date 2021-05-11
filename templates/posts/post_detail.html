@@ -6,9 +6,18 @@
   {% load crispy_forms_tags %}
   {% load static %}
   <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+  <title>{{ object.title }} by {{ object.user }}</title>
 </head>
 <body>
   {% include "navbar.html" %}
+  {% if object.private_status == True and not user.is_authenticated %}
+  <div class="container">
+    <div class="jumbotron mt-5 bg-dark">
+      <h3>You must be logged in to view this post.</h3>
+      <p>Please <a href="/login">login</a> or <a href="/signup">create an account</a> to continue.</p>
+    </div>
+  </div>
+  {% else %}
   <div class="container mt-5">
     <img src="{{ object.image.url }}" alt="{{ object.title }}" class="center">
   </div>
@@ -22,23 +31,28 @@
     {% endfor %}
     </p>
   </div>
-  <div class="container">
+  {% if user.is_authenticated %}
+  <div class="container col-6 pb-5">
+    <form action="{% url 'post_detailed' pk=object.id %}" method="POST"> {% csrf_token %}
+      {{ comment_form|crispy }}
+      <input type="submit" class="btn btn-info" value="Post Comment"/>
+    </form>
+  </div>
+
+  {% endif %}
+  <div class="container ml-5">
     <ul>
-      {% for comment in object.comment.all %}
+      {% for comment in object.comment_set.all %}
       <li>
-        <b>{{ comment.user }}</b><br>
-        {{ comment.text }}
+        <div class="jumbotron bg-dark col-8" id="jumbo-comment">
+          <b>{{ comment.user }}</b><br>
+          <small>{{ comment.timestamp }}</small><br><br>
+          <p>{{ comment.text }}</p>
+        </div>
       </li>
       {% endfor %}
     </ul>
   </div>
-  <div class="container">
-    <div class="jumbotron bg-dark">
-      <form action="{% url 'post_detailed' pk=object.id %}" method="POST"> {% csrf_token %}
-        {% crispy comment_form %}
-        <input type="submit" class="btn btn-info" value="Comment">
-      </form>
-    </div>
-  </div>
+  {% endif %}
 </body>
 <html>

@@ -10,11 +10,11 @@ class Post(models.Model):
     description = models.TextField(max_length=500)
     tags = TaggableManager()
     timestamp = models.DateField(auto_now_add=True)
-    public_status = models.BooleanField(default=False)
+    private_status = models.BooleanField(default=False)
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    text = models.TextField()
+    text = models.TextField(max_length=400)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateField(auto_now_add=True)
     timestamp_edited = models.DateField(auto_now=True)
