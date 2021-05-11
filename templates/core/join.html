@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  {% include "bootstrap.html" %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+  <title>Signup</title>
+</head>
+<body>
+  {% include "navbar.html" %}
+  <div class="container">
+    <div class="jumbotron mt-5 bg-dark">
+      <h2 class="pb-4">Account Registration</h2>
+      <form method="POST"> {% csrf_token %}
+        <table>
+          {{ join_form.as_table }}
+        </table>
+        <input type="submit" class="btn btn-info mt-4" value="Create account"/>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% if user.is_authenticated %}
+<html>
+<head>
+  <meta charset="utf-8">
+  {% include "bootstrap.html" %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+  <title>Your Uploads</title>
+</head>
+<body>
+  {% include "navbar.html" %}
+  <div class="container">
+    <div class="jumbotron mt-5 bg-dark text-center">
+      <h2 class="pb-4">Your Uploads</h2>
+      {% if user_uploads %}
+      {% for post in user_uploads.all reversed %} <!--reversed to render new posts first-->
+      <br>
+      <a href="/posts/{{ post.pk }}/"> <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-prev"/> </a>
+      <p class="pt-2">
+        <b><a href="/posts/{{ post.pk }}/" class="link-no-color">{{ post.title }}</a></b> <em>by</em> <b>{{ post.user }}</b>
+        <br>
+        <small>Uploaded: {{ post.timestamp }}</small></p>
+      {% endfor %}
+      {% else %}
+      <p>No previous uploads. Click <a href="/upload/">here</a> to make a submission.</p>
+      {% endif %}
+      </div>
+    </div>
+  </body>
+  <html>
+
+{% else %}
+  <head>
+    <meta charset="utf-8">
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+    <title>Your Uploads</title>
+  </head>
+  <body>
+    {% include "navbar.html" %}
+    <div class="container">
+      <div class="jumbotron mt-5 bg-dark">
+        <h3>You must be logged in to see your posts!</h3>
+        <p>Please <a href="/login">login</a> or <a href="/signup">create an account</a> to continue.</p>
+      </div>
+    </div>
+  </body>
+  <html>
+{% endif %}

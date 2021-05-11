@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  {% include "bootstrap.html" %}
+  {% load crispy_forms_tags %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+</head>
+<body>
+  {% include "navbar.html" %}
+  <div class="container mt-5">
+    <img src="{{ object.image.url }}" alt="{{ object.title }}" class="center">
+  </div>
+  <div class="jumbotron mt-5 ml-5 mr-5 bg-dark">
+    <h3>{{ object.title }}</h3>
+    <p class="pb-3">By <b>{{ object.user }}</b>, posted <b>{{ object.timestamp }}</b></p>
+    <p>{{ object.description }}</p>
+    <p class="pt-4"><b>Tags: </b>
+    {% for tag in object.tags.all %}
+    {{ tag }}
+    {% endfor %}
+    </p>
+  </div>
+  <div class="container">
+    <ul>
+      {% for comment in object.comment.all %}
+      <li>
+        <b>{{ comment.user }}</b><br>
+        {{ comment.text }}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="container">
+    <div class="jumbotron bg-dark">
+      <form action="{% url 'post_detailed' pk=object.id %}" method="POST"> {% csrf_token %}
+        {% crispy comment_form %}
+        <input type="submit" class="btn btn-info" value="Comment">
+      </form>
+    </div>
+  </div>
+</body>
+<html>

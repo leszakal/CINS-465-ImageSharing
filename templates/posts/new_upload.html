@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% if user.is_authenticated %}
+<html>
+<head>
+  <meta charset="utf-8">
+  {% include "bootstrap.html" %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+  <title>Upload</title>
+</head>
+<body>
+  {% include "navbar.html" %}
+  {% load crispy_forms_tags %}
+  <div class="container">
+    <div class="jumbotron mt-5 bg-dark">
+      <h2 class="pb-4">New Upload</h2>
+      <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+        <table>
+          {% crispy post_form %}
+        </table>
+        <input type="submit" class="btn btn-info mt-4" name="confirm" value="Confirm Upload"/>
+      </form>
+    </div>
+  </div>
+</body>
+<html>
+
+{% else %}
+  <head>
+    <meta charset="utf-8">
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+    <title>Upload</title>
+  </head>
+  <body>
+    {% include "navbar.html" %}
+    {% load crispy_forms_tags %}
+    <div class="container">
+      <div class="jumbotron mt-5 bg-dark">
+        <h3>You must be logged in to upload!</h3>
+        <p>Please <a href="/login">login</a> or <a href="/signup">create an account</a> to continue.</p>
+      </div>
+    </div>
+  </body>
+  <html>
+{% endif %}
