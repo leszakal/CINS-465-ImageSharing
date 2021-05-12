@@ -9,9 +9,13 @@
 </head>
 <body>
   {% include "navbar.html" %}
-  <div class="container">
-    <div class="jumbotron mt-5 bg-dark">
+  <div class="container vertical-center">
+    <div class="jumbotron mt-5 bg-dark text-center col-12" id="search-jumbo">
       <h2 class="pb-4">Search</h2>
+      <form method="GET" action="{% url 'search' %}" class="col-10 center">
+        <input class="form-control" name="search_content" type="search" aria-label="Search" placeholder="Search by title or tags">
+        <button type="submit" class="btn btn-info mt-3">Search</button>
+      </form>
     </div>
   </div>
 </body>

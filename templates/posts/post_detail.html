@@ -21,15 +21,19 @@
   <div class="container mt-5">
     <img src="{{ object.image.url }}" alt="{{ object.title }}" class="center">
   </div>
-  <div class="jumbotron mt-5 ml-5 mr-5 bg-dark">
-    <h3>{{ object.title }}</h3>
-    <p class="pb-3">By <b>{{ object.user }}</b>, posted <b>{{ object.timestamp }}</b></p>
-    <p>{{ object.description }}</p>
-    <p class="pt-4"><b>Tags: </b>
-    {% for tag in object.tags.all %}
-    {{ tag }}
-    {% endfor %}
-    </p>
+  <div class="jumbotron post-jumbo mt-5 ml-5 mr-5 bg-dark">
+    <div class="container title-container col-12">
+      <h3>{{ object.title }}</h3>
+      <p>By <b>{{ object.user }}</b>, posted <b>{{ object.timestamp }}</b></p>
+    </div>
+    <div class="container description-container pt-4">
+      <p>{{ object.description }}</p>
+      <p class="pt-4"><b>Tags: </b>
+      {% for tag in object.tags.all %}
+      {{ tag }}
+      {% endfor %}
+      </p>
+    </div>
   </div>
   {% if user.is_authenticated %}
   <div class="container col-6 pb-5">
@@ -44,7 +48,7 @@
     <ul>
       {% for comment in object.comment_set.all %}
       <li>
-        <div class="jumbotron bg-dark col-8" id="jumbo-comment">
+        <div class="jumbotron bg-dark col-8 comment-jumbo">
           <b>{{ comment.user }}</b><br>
           <small>{{ comment.timestamp }}</small><br><br>
           <p>{{ comment.text }}</p>

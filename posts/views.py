@@ -9,11 +9,13 @@ from posts.models import Post, Comment
 
 # Create your views here.
 def browse_recent(request):
-    uploads = Post.objects.all()
-    public_uploads = Post.objects.filter(private_status=False).all()
+    user = request.user
+    if user.is_authenticated:
+        uploads = Post.objects.all()
+    else:
+        uploads = Post.objects.filter(private_status=False).all()
     context = {
     "uploads": uploads,
-    "public_uploads": public_uploads,
     }
     return render(request, 'posts/browse_recent.html', context)
 
@@ -29,13 +31,13 @@ def new_upload(request):
                 return redirect("upload_success")
             else:
                 context = {
-                "post_form": post_form
+                "post_form":post_form
                 }
                 return render(request, 'posts/new_upload.html', context)
     else:
         post_form = PostForm()
         context = {
-        "post_form": post_form,
+        "post_form":post_form,
         }
         return render(request, 'posts/new_upload.html', context)
 
@@ -53,7 +55,7 @@ def user_uploads(request):
     if(request.method == "GET"):
         user_uploads = Post.objects.filter(user=request.user).all()
         context = {
-        "user_uploads": user_uploads,
+        "user_uploads":user_uploads,
         }
         return render(request, 'posts/user_uploads.html', context)
 

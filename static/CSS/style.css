@@ -16,8 +16,8 @@ ul {
   list-style-type: none;  /*Remove bullets*/
 }
 .img-prev {
-  max-width: 500px;
-  max-height: 500px;
+  max-width: 400px;
+  max-height: 400px;
 }
 .asteriskField {  /*Removes * from django-crispy-forms required fields*/
   display: none;
@@ -30,10 +30,35 @@ ul {
 .link-no-color {
   color: #e6e6e6;
 }
-.jumbotron {  /*Lessens padding for jumbotrons*/
+.jumbotron {  /*Lessens padding for jumbotrons; People say to not modify the base class, but I'm lazy*/
   padding: 40px;
 }
-#jumbo-comment {
+.vertical-center {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.comment-jumbo {
   padding: 15px; /*Styling for comment jumbotrons*/
   margin-bottom: 15px;
+}
+.post-jumbo {
+  padding: 5px;
+}
+.title-container {
+  padding: 10px;
+  padding-bottom: 1px;
+  margin: 0px;
+  background-color: #0f191d
+}
+.description-container {
+  padding: 10px;
+  padding-left: 15px;
+  margin: 0px;
+}
+.crispy-container {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  font-weight: bold;
 }

@@ -3,10 +3,32 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from core.forms import JoinForm, LoginForm
+from django.db.models import Q  #for OR queries
+from posts.models import Post
 
 # Create your views here.
 def home(request):
     return render(request, 'core/home.html')
+
+def search(request):
+    user = request.user
+    if request.method == 'GET':
+        search_input = request.GET.get('search_content')
+        if user.is_authenticated:
+            results = Post.objects.filter(
+                Q(title__icontains=search_input) | Q(tags__name__in=[search_input])
+            ).distinct()
+        else:
+            results = Post.objects.filter(
+                Q(title__icontains=search_input) | Q(tags__name__in=[search_input]),
+                private_status__exact=False
+            ).distinct()
+        context = {
+            "search_results":results,
+        }
+        return render(request, 'core/search.html', context)
+    else:
+        return render(request, 'core/search.html')
 
 def join(request):
     if(request.method == "POST"):
