@@ -5,6 +5,7 @@
   {% include "bootstrap.html" %}
   {% load crispy_forms_tags %}
   {% load static %}
+  <script src="{%static 'JS/common.js' %}"></script>
   <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
   <title>{{ object.title }} by {{ object.user }}</title>
 </head>
@@ -34,9 +35,9 @@
       {% endfor %}
       </p>
       {% if object.user == request.user %}
-      <div class="container" id="edit-delete-container">
-        <a class="btn btn-info col-1" href="/posts/{{ object.id }}/edit/">Edit</a>
-        <a class="btn btn-danger ml-2 col-1" href="#" onclick="confirmDeleteModal({{ row.id }})">Delete</a>
+      <div class="mt-4">
+        <a class="btn btn-outline-info col-1 btn-sm" href="/posts/{{ object.id }}/edit/">Edit Post</a>
+        <a class="btn btn-outline-danger ml-2 btn-sm" href="#" onclick="confirmDeletePost({{ object.id }})">Delete Post</a>
       </div>
       {% endif %}
     </div>
@@ -48,21 +49,65 @@
       <input type="submit" class="btn btn-info" value="Post Comment"/>
     </form>
   </div>
-
   {% endif %}
   <div class="container ml-5">
     <ul>
       {% for comment in object.comment_set.all %}
       <li>
-        <div class="jumbotron bg-dark col-8 comment-jumbo">
+        <div class="jumbotron bg-dark comment-jumbo">
           <b>{{ comment.user }}</b><br>
           <small>{{ comment.timestamp }}</small><br><br>
           <p>{{ comment.text }}</p>
+          {% if comment.user == request.user %}
+          <p>
+            <a href="#cmt{{ comment.id }}" onclick="confirmDeleteComment({{ object.id }}, {{ comment.id }})">Delete</a> |
+          </p>
+          {% endif %}
         </div>
       </li>
       {% endfor %}
     </ul>
   </div>
   {% endif %}
+
+  <!--Modals-->
+  <div id="deletePostModal" class="modal fade" role='dialog'>
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-dark">
+        <div class="modal-header">
+          <h4 class="modal-title text-left-align">Delete Comment</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><p class="modal-x-light">×</p></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this comment?</p>
+        </div>
+        <form method="POST" action="/posts/{{ object.id }}/delete/">{% csrf_token %}
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <span id='deleteButton'></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="deleteCommentModal" class="modal fade" role='dialog'>
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-dark">
+        <div class="modal-header">
+          <h4 class="modal-title text-left-align">Delete Comment</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><p class="modal-x-light">×</p></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete this comment?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <span id='deleteButtonCom'></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 <html>

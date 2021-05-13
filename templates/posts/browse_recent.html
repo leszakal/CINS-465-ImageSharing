@@ -16,9 +16,10 @@
       <br>
       <a href="/posts/{{ post.pk }}/"> <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-prev"/> </a>
       <p class="pt-2">
-        <b><a href="/posts/{{ post.pk }}/" class="link-no-color">{{ post.title }}</a></b> <em>by</em> <b>{{ post.user }}</b>
+        <b><a href="/posts/{{ post.pk }}/" class="link-no-color">{{ post.title }}</a></b>
         <br>
-        <small>Uploaded: {{ post.timestamp }}</small></p>
+        <em class="font-smaller">by</em> <b>{{ post.user }}</b>
+      </p>
       {% endfor %}
       </div>
     </div>

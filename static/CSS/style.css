@@ -41,6 +41,7 @@ ul {
 }
 .comment-jumbo {
   padding: 15px; /*Styling for comment jumbotrons*/
+  padding-bottom: 1px;
   margin-bottom: 15px;
 }
 .post-jumbo {
@@ -62,6 +63,13 @@ ul {
   padding: 0px 0px 0px 0px;
   font-weight: bold;
 }
-#edit-delete-container {
-  margin-left: 130%;
+.font-smaller {
+  font-size: 90%;
+  font-weight: lighter;
+}
+.modal-dark {
+  background-color: #292b2c;
+}
+.modal-x-light {
+  color: White;
 }

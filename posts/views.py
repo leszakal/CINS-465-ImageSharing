@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin #for generic views
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.models import User
@@ -30,7 +31,7 @@ def new_upload(request):
                 submission.user = request.user
                 submission.save()
                 post_form.save_m2m()    #save for many-to-many
-                return redirect("upload_success")
+                return redirect("/user_uploads/")
             else:
                 context = {
                 "post_form":post_form
@@ -42,11 +43,6 @@ def new_upload(request):
         "post_form":post_form,
         }
         return render(request, 'posts/new_upload.html', context)
-
-# Called when upload is successful
-@login_required(login_url="/login/")
-def upload_success(request):
-    return render(request, 'posts/upload_success.html')
 
 # Renders user's previous uploads
 def user_uploads(request):
@@ -84,11 +80,31 @@ class PostDetailed(DetailView):
             raise Exception
         return redirect(self.request.path_info)
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
     model = Post
     fields = ['title', 'description', 'tags', 'private_status']
     template_name_suffix = '_update'
 
     def get_success_url(self):
         pk = self.kwargs['pk']
-        return reverse('post_detailed', kwargs={"pk":pk})
+        return reverse('post_detailed', kwargs={'pk':pk})
+
+@login_required(login_url="/login/")
+def delete_post(request, post_id=None):
+    if (request.method == 'POST'):
+        post = Post.objects.get(id=post_id)
+        post.delete()
+        return render(request, 'posts/delete_success.html')
+    else:
+        return redirect('/user_uploads/')
+
+@login_required(login_url="/login/")
+def delete_comment(request, post_id=None, comment_id=None):
+    pk = int(post_id)
+    if (request.method == 'GET' and 'delcom' in request.GET):
+        comment = Comment.objects.get(id=comment_id)
+        comment.delete()
+        return redirect('post_detailed', pk=pk)
+    else:
+        return redirect('post_detailed', pk=pk)

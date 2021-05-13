@@ -25,6 +25,7 @@ def search(request):
             ).distinct()
         context = {
             "search_results":results,
+            "search_input":search_input,
         }
         return render(request, 'core/search.html', context)
     else:
