@@ -33,6 +33,12 @@
       {{ tag }}
       {% endfor %}
       </p>
+      {% if object.user == request.user %}
+      <div class="container" id="edit-delete-container">
+        <a class="btn btn-info col-1" href="/posts/{{ object.id }}/edit/">Edit</a>
+        <a class="btn btn-danger ml-2 col-1" href="#" onclick="confirmDeleteModal({{ row.id }})">Delete</a>
+      </div>
+      {% endif %}
     </div>
   </div>
   {% if user.is_authenticated %}

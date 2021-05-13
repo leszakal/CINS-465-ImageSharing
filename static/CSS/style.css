@@ -62,3 +62,6 @@ ul {
   padding: 0px 0px 0px 0px;
   font-weight: bold;
 }
+#edit-delete-container {
+  margin-left: 130%;
+}

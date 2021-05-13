@@ -3,9 +3,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
 from django.contrib.auth.models import User
 from posts.forms import PostForm, CommentForm
 from posts.models import Post, Comment
+from django.urls import reverse
 
 # Create your views here.
 def browse_recent(request):
@@ -81,3 +83,12 @@ class PostDetailed(DetailView):
         else:
             raise Exception
         return redirect(self.request.path_info)
+
+class PostUpdateView(UpdateView):
+    model = Post
+    fields = ['title', 'description', 'tags', 'private_status']
+    template_name_suffix = '_update'
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse('post_detailed', kwargs={"pk":pk})

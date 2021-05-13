@@ -20,7 +20,10 @@
       <p class="pt-2">
         <b><a href="/posts/{{ post.pk }}/" class="link-no-color">{{ post.title }}</a></b> <em>by</em> <b>{{ post.user }}</b>
         <br>
-        <small>Uploaded: {{ post.timestamp }}</small></p>
+        <small>Uploaded: {{ post.timestamp }}<br></small>
+        <small>Require Login: {% if post.private_status == True %} Yes</small> {% else %} No</small> {% endif %}
+
+      </p>
       {% endfor %}
       {% else %}
       <p>No previous uploads. Click <a href="/upload/">here</a> to make a submission.</p>

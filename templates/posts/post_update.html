@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Edit Post</title>
+  {% include "bootstrap.html" %}
+  {% load crispy_forms_tags %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+</head>
+<body>
+  {% include "navbar.html" %}
+  <div class="container">
+    <div class="jumbotron mt-5 bg-dark">
+      <h1>Edit object.title</h1>
+      <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+  			<a href="/posts/{{ object.id }}/" class="btn btn-secondary">Cancel</a>
+  			<input type="submit" class="btn btn-info ml-2" value="Save">
+      </form>
+    </div>
+  </div>
+</body>
+</html>
