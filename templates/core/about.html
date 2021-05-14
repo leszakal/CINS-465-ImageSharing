@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  {% include "bootstrap.html" %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+  <title>About</title>
+</head>
+<body>
+  {% include "navbar.html" %}
+  <div class="container">
+    <div class="jumbotron mt-5 bg-dark col-12">
+      <h2 class="pb-4">About</h2>
+      <h4 class="pb-2">- Site Purpose -</h4>
+      <div class="container pl-4">
+        <p>
+          This is an image sharing site that allows users to upload photos or artwork with custom titles, descriptions, and tags.
+          Posts can be edited or removed as Users please. Depending on user choice, posts can be visible to any visitor to the site, or only to those with accounts.
+          Registered users to interact with posts via the comment system.
+          Be sure to utitlize the basic search function to find posts based on title or tags.
+        </p>
+      </div>
+      <br>
+      <h4 class="pb-2">- Tools Used -</h4>
+      <ul>
+        <li> > Django Framwork</li>
+        <li> > Bootstrap 4</li>
+        <li> > TML/CSS, JavaScript</li>
+        <li> > <a href="https://github.com/django-crispy-forms/django-crispy-forms" target="_blank">Django-crispy-forms</a></li>
+        <li> > <a href="https://github.com/jazzband/django-taggit" target="_blank">Django-taggit</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+<html>

@@ -79,3 +79,6 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+def about(request):
+    return render(request, 'core/about.html')
