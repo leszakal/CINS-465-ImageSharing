@@ -12,7 +12,7 @@
   {% include "navbar.html" %}
   <div class="container">
     <div class="jumbotron mt-5 bg-dark">
-      <h1>Edit object.title</h1>
+      <h1>Edit - {{ object.title }}</h1>
       <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}
