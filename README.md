@@ -10,7 +10,7 @@ Check out the site at [35.212.159.188](http://35.212.159.188).
 
 - Users can upload image files to this website with titles, descriptions, and tags
 - Posts can be edited or deleted by the poster 
-- Logged in users can leave comments on posts; comments are deletable.  
+- Logged in users can leave comments on posts; comments are deletable
 - Use the search box to find images from tags or titles
 - Click on any image name or the image itself to see a detailed view
 - Created with the Django framework and Bootstrap; deployed via Google Cloud Platform
