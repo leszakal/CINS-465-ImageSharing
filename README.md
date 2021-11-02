@@ -4,7 +4,7 @@
 ____
 *_Real email is not needed to create an account. An account may be needed to view all images on the site._
 
-Check out the site at [35.212.159.188](35.212.159.188).
+Check out the site at [35.212.159.188](http://35.212.159.188).
 
 #### Site Info:
 
