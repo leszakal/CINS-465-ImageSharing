@@ -4,6 +4,8 @@
 ____
 *_Real email is not needed to create an account. An account may be needed to view all images on the site._
 
+Note: This site has not been deployed fully and shouldn't actually be used. It's really just a demo.
+
 Check out the site at [35.212.159.188](http://35.212.159.188).
 
 #### Site Info:
