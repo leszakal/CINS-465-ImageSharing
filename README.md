@@ -1,4 +1,4 @@
-# CINS-465_ImageSharing
+# CINS-465-ImageSharing
 
 ### ---Image sharing website made for CINS 465 (Web Programming Fundamentals)---
 ____
