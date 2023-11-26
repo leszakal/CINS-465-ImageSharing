@@ -6,7 +6,7 @@ ____
 
 Note: This site has not been deployed fully and shouldn't actually be used. It's really just a demo.
 
-Check out the site at [35.212.159.188](http://35.212.159.188).
+**The site is not currently live**
 
 #### Site Info:
 
